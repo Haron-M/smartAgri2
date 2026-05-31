@@ -1,5 +1,5 @@
    :root {
-       --body-bg: #222c47;
+       --body-bg: #2e3a5c;
        --panel-bg: rgba(19, 28, 46, 0.8);
        --card-inner: rgba(30, 41, 59, 0.4);
        --border-glow: rgba(255, 255, 255, 0.06);
@@ -33,7 +33,7 @@
            flex-direction: column;
            justify-content: center;
            align-items: center;
-           padding: 30px;
+           padding: 10px;
        }
 
    }
@@ -49,6 +49,7 @@
        height: auto;
        z-index: 1;
        padding: 15px 20px;
+       margin-bottom: 100px;
 
    }
 
@@ -82,7 +83,7 @@
    .dashboard-grid {
        display: grid;
        grid-template-columns: 360px 1fr;
-       gap: 32px;
+       gap: 30px;
    }
 
    /* Sidebar Panels Layout */
