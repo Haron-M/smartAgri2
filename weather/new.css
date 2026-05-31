@@ -98,7 +98,8 @@
    }
 
    .location-block h2 {
-       margin: 2px 5px;
+       padding: 10px;
+
        font-size: 24px;
        font-weight: 700;
        letter-spacing: -0.5px;
@@ -109,8 +110,8 @@
        font-size: 13px;
        color: var(--humidity-color);
        font-weight: 600;
-       margin-top: 4px;
-       margin-left: 5px;
+       margin-top: -12px;
+       padding: 10px;
        text-transform: uppercase;
    }
 
