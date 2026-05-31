@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Climate Analytics Station</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="new.css">
+</head>
+
+<body>
+    <header>
+        <div class="myheader">get realtime weather prediction</div>
+    </header>
+
+    <div class="dashboard-container">
+        <div id="sys-loader" class="loading-screen">
+            <div class="spinner"></div>
+            <div style="color: var(--text-muted); font-size: 13px;">Synchronizing climate interface...</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="sidebar-panel">
+                <div class="location-block">
+                    <h2 id="loc-name-display"></h2>
+                    <div id="live-timestamp-clock" class="time-meta"></div>
+                </div>
+
+                <div class="hero-weather-wrapper">
+                    <div id="hero-icon-mount">
+                        <svg class="main-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M46 36C46 30.48 41.52 26 36 26C35.24 26 34.5 26.09 33.79 26.26C31.55 21.44 26.66 18 21 18C13.27 18 7 24.27 7 32C7 32.34 7.01 32.68 7.04 33.02C4.05 34.25 2 37.19 2 40.67C2 45.27 5.73 49 10.33 49H45.33C49.74 49 53.33 45.41 53.33 41C53.33 36.87 50.19 33.47 46 33.05V36Z"
+                                fill="#94A3B8" />
+                        </svg>
+                    </div>
+                    <div class="hero-temp-box">
+                        <span id="hero-temp-val" class="hero-temp-number">20.2</span>
+                        <span class="hero-temp-unit">°C</span>
+                    </div>
+                </div>
+
+                <div id="nlp-alert-box" class="alert-box">
+                    <div id="nlp-alert-title" class="alert-heading">Rain Expected This Afternoon</div>
+                    <div id="nlp-alert-body" class="alert-body">Light rain is forecasted locally near the station
+                        timelines window.</div>
+                </div>
+
+                <div class="stats-grid-box">
+                    <div class="stat-card">
+                        <span class="stat-label">Weather Profile</span>
+                        <span id="lbl-desc" class="stat-val">light rain</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Precipitation Chance:</span>
+                        <span id="lbl-pop" class="stat-val">98%</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Relative Humidity:</span>
+                        <span id="lbl-humidity" class="stat-val">79%</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Soil Volumetric Moisture:</span>
+                        <span id="lbl-soil" class="stat-val">0.22 m³/m³</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-workspace">
+                <div class="chart-card-panel">
+                    <div class="chart-header">
+
+                        <div class="chart-title-stack">
+                            <h3>24-Hour Temperature & Humidity</h3>
+                            <span>Hourly Dynamic Area Intersections</span>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item"><span class="legend-dot"
+                                    style="background: var(--temp-color);"></span>Temp (°C)</div>
+                            <div class="legend-item"><span class="legend-dot"
+                                    style="background: var(--humidity-color);"></span>Humidity (%)</div>
+                        </div>
+
+                    </div>
+
+                    <div class="svg-canvas-wrapper">
+                        <div id="tooltip-line-graph" class="chart-tooltip"></div>
+                        <svg id="svg-line-canvas" class="interactive-svg-frame">
+                            <defs>
+                                <linearGradient id="yellowShadowGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="var(--temp-color)" stop-opacity="0.25" />
+                                    <stop offset="100%" stop-color="var(--temp-color)" stop-opacity="0.0" />
+                                </linearGradient>
+                                <linearGradient id="blueShadowGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="var(--humidity-color)" stop-opacity="0.2" />
+                                    <stop offset="100%" stop-color="var(--humidity-color)" stop-opacity="0.01" />
+                                </linearGradient>
+
+                                <clipPath id="tempCurveClip">
+                                    <path id="clipPath-temp" d=""></path>
+                                </clipPath>
+                            </defs>
+                            <g id="line-gridlines-group"></g>
+
+                            <path id="path-humidity-shading" class="grad-humidity-fill"></path>
+                            <path id="path-temp-shading" class="grad-temp-fill"></path>
+
+                            <path id="path-humidity-curve" class="line-humidity-path"></path>
+                            <path id="path-temp-curve" class="line-temp-path"></path>
+
+                            <line id="line-crosshair-track" class="tracker-crosshair" x1="0" y1="0" x2="0" y2="100"
+                                style="display:none;"></line>
+                            <circle id="dot-temp-anchor" r="5" fill="var(--temp-color)" stroke="#0b0f19"
+                                stroke-width="2" style="display:none; pointer-events:none;"></circle>
+                            <circle id="dot-humidity-anchor" r="5" fill="var(--humidity-color)" stroke="#0b0f19"
+                                stroke-width="2" style="display:none; pointer-events:none;"></circle>
+                            <rect id="rect-line-interceptor" class="overlay-event-catch" width="100%" height="100%">
+                            </rect>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="chart-card-panel">
+                    <div class="chart-header">
+                        <div class="chart-title-stack">
+                            <h3>7-Day Rainfall Forecast</h3>
+                            <span>Expected Amount Tracker (mm)</span>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item"><span class="legend-dot"
+                                    style="background: var(--rain-bar-color);"></span>Rainfall Volume (mm)</div>
+                        </div>
+                    </div>
+
+                    <div class="svg-canvas-wrapper">
+                        <div id="tooltip-bar-chart" class="chart-tooltip"></div>
+                        <svg id="svg-bar-canvas" class="interactive-svg-frame">
+                            <g id="bar-gridlines-group"></g>
+                            <g id="bars-graphic-nodes-container"></g>
+                        </svg>
+                    </div>
+                </div>
+
+                <div id="weekly-forecast-strip" class="forecast-strip-row"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="new.js">
+
+
+    </script>
+</body>
+
+</html>
