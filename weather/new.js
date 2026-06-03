@@ -131,7 +131,7 @@ function renderNaturalLanguageBanners() {
         const startHour = startDate.getHours();
 
         // Compute duration (Each OpenWeather step natively spans exactly 3 hours)
-        const durationHours = (rainEndIndex - rainStartIndex) * 3;
+        const durationHours = (rainEndIndex - rainStartIndex) ;
 
         // Establish the natural language time periods
         let timePeriod = "this afternoon";
@@ -153,7 +153,7 @@ function renderNaturalLanguageBanners() {
         const displayEndTime = format12h(endDate);
 
         // 3. Update Text Content dynamically
-        titleNode.innerText = `Rain expected ${timePeriod}`;
+        titleNode.innerText = `Rain is expected ${timePeriod}`;
         bodyNode.innerText = `Rainfall is projected to begin around ${displayStartTime} and conclude at approximately ${displayEndTime}, lasting roughly ${durationHours} hours.`;
         container.style.display = "block";
     } else {
